@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package image;
+
+service ImageService{
+    rpc UploadFile(stream UploadImageRequest) returns (StringResponse) {}
+    rpc DownloadFile(ImageInfo) returns (stream ImageResponse) {}
+    rpc GetImages (Empty) returns (ImagesInfoResponse);
+}
+message Empty {}
+message ImagesInfoResponse {
+  repeated ImageInfoResponse images = 1;
+}
+
+message ImageInfoResponse {
+  string ImageName= 1;
+  string CreatedAt= 2;
+  string UpdatedAt= 3;
+}
+
+message StringResponse {
+    string message = 1;
+  }
+
+  message ImageResponse {
+    bytes chunk_data = 1;
+  }
+
+  message ImageInfo {
+    string image_name = 1;
+    string image_data = 2;
+  }
+
+  message UploadImageRequest {
+    oneof request {
+      ImageInfo info = 1;
+      bytes chunk_data = 2;
+    }
+  }
