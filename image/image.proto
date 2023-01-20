@@ -27,8 +27,7 @@ message StringResponse {
   }
 
   message ImageInfo {
-    string image_name = 1;
-    string image_data = 2;
+    string file_name= 1;
   }
 
   message UploadImageRequest {
